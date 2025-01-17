@@ -17,9 +17,11 @@ signal.signal(signal.SIGINT, signal_handler)
 
 def handle_data(data):
     timestamp = time.strftime("%d/%m %H:%M:%S",time.gmtime())
+    print(data)
     #data = [ord(i) for i in data]
     check = checksum(data)
     log_string = timestamp +' SUM: '+str(check)+'  \t'+ str(data)
+    byte_values = " ".join([f"{byte:02X}" for byte in data])
     if check == data[-1]:
         log_string = 'STATUS_OK ' + log_string
     else:
@@ -27,6 +29,7 @@ def handle_data(data):
     #data = ord(data)
     log_file.write(log_string+'\n')
     print(log_string)
+    print(byte_values)
     parse_for_fuel(data)
 
 

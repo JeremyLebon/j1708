@@ -26,9 +26,13 @@ def to_dec(string):
     return array
 
 def checksum(array):
-    checksum = 0
-    for x in range(0, (len(array)-1)):
-        checksum += array[x]
-    checksum &= 255
-    checksum = 256 - checksum
-    return checksum
+    """Calculate J1708 checksum."""
+    return (256 - sum(array[:-1]) % 256) & 0xFF
+    
+    
+    # checksum = 0
+    # for x in range(0, (len(array)-1)):
+    #     checksum += array[x]
+    # checksum &= 255
+    # checksum = 256 - checksum
+    # return checksum
